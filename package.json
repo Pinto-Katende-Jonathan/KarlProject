@@ -1,0 +1,14 @@
+{
+  "name": "newfolder",
+  "version": "1.0.0",
+  "description": "Projet apiflask(python backend) react",
+  "main": "index.js",
+  "scripts": {
+    "backend": "npm run server --prefix server",
+    "frontend": "npm run client --prefix client",
+    "start": "npm run frontend & npm run backend"
+  },
+  "keywords": [],
+  "author": "Pinto Katende",
+  "license": "ISC"
+}
