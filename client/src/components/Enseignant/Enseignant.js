@@ -62,7 +62,7 @@ function Enseignant() {
 
   const onChange = (e) => {
     const { value, id } = e.target;
-    console.log(value);
+    // console.log(e);
     setFormData({ ...formData, [id]: value });
   };
 
@@ -110,7 +110,11 @@ function Enseignant() {
       }
     } else {
       // adding new enseignant
-      if (formData.noms.trim() !== "" && formData.telephone.trim() !== "") {
+      if (
+        formData.noms.trim() !== "" &&
+        formData.telephone.trim() !== "" &&
+        formData.telephone.length == 10
+      ) {
         fetch(url, {
           method: "POST",
           body: JSON.stringify(formData),

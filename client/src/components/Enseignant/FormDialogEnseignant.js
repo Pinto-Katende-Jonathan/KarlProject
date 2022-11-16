@@ -42,6 +42,7 @@ export default function FormDialog({
             />
             <TextField
               id="telephone"
+              type="tel"
               value={telephone}
               onChange={(e) => onChange(e)}
               placeholder="Entrez votre numéro de téléphone"
@@ -50,16 +51,6 @@ export default function FormDialog({
               margin="dense"
               fullWidth
             />
-            {/* <TextField
-              id="grade"
-              value={grade}
-              onChange={(e) => onChange(e)}
-              placeholder="Grade"
-              label="Grade"
-              variant="outlined"
-              margin="dense"
-              fullWidth
-            /> */}
 
             <FormControl fullWidth>
               <NativeSelect
@@ -71,6 +62,9 @@ export default function FormDialog({
                 }}
               >
                 <option value="None">None</option>
+                <option value="Po">Po</option>
+                <option value="P">P</option>
+                <option value="Pa">Pa</option>
                 <option value="Ct">Ct</option>
                 <option value="Ass">Ass</option>
                 <option value="cc">cc</option>
