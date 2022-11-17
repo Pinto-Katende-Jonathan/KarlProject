@@ -37,7 +37,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-	background-color: rgba(169, 169, 169, 0.644);
+	/* background-color: rgba(169, 169, 169, 0.644); */
+	background: url(./components/assets/3.jpg);
+	background-size: cover;
 }
 ol, ul {
 	list-style: none;
