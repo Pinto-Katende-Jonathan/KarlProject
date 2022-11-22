@@ -34,13 +34,13 @@ function Cours() {
     {
       headerName: "Actions",
       field: "id",
-      cellRendererFramework: (params) => {
+      cellRendererFramework: (params) => (
         <ButtonsEditDel
           params={params}
           handleUpdate={coursUpdate}
           handleDelete={coursDelete}
-        />;
-      },
+        />
+      ),
     },
   ];
 
@@ -106,6 +106,9 @@ function Cours() {
         });
     } else {
       // adding new user
+      if (!formData.int_cours || !formData.volume) {
+        return;
+      }
       fetch(url, {
         method: "POST",
         body: JSON.stringify({

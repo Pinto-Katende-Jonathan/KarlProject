@@ -26,15 +26,13 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
     setOpen(false);
   };
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
     // console.log(e.target.value);
   };
-
-  console.log(dataEns);
 
   const handleFormSubmit = (e) => {
     if (
@@ -45,8 +43,22 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
     ) {
       return;
     }
+
+    fetch("http://localhost:5000/prestation", {
+      method: "POST",
+      body: JSON.stringify(inputs),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        // handleClose();
+        // getCours();
+        console.log(resp);
+      });
+
     console.log("submitted");
-    console.log(inputs);
     handleClose();
     setInputs(initialValues);
   };
@@ -73,7 +85,7 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
               name="heureDebut"
               type="time"
               value={inputs.heureDebut}
-              onChange={(e) => onChange(e)}
+              onChange={(e) => handleChange(e)}
               variant="outlined"
               margin="dense"
               fullWidth
@@ -85,7 +97,7 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
               name="heureFin"
               type="time"
               value={inputs.heureFin}
-              onChange={(e) => onChange(e)}
+              onChange={(e) => handleChange(e)}
               variant="outlined"
               margin="dense"
               fullWidth
@@ -97,7 +109,7 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
                 name="enseignant_id"
                 label="Enseignant"
                 value={inputs.enseignant_id}
-                onChange={(e) => onChange(e)}
+                onChange={(e) => handleChange(e)}
               >
                 {dataEns.map((el) => {
                   return (
@@ -115,7 +127,7 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
                 name="cours_id"
                 label="Cours"
                 value={inputs.cours_id}
-                onChange={(e) => onChange(e)}
+                onChange={(e) => handleChange(e)}
               >
                 {dataCours.map((el) => {
                   return (
