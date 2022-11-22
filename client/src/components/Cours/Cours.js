@@ -1,16 +1,16 @@
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { AgGridReact } from "ag-grid-react";
-import React, { useEffect, useState } from "react";
 import ButtonsEditDel from "../UI/ButtonEditDel";
 import HeaderTitle from "../UI/HeaderTitle";
 import FormDialog from "./FormDialogCours";
 
 const initialValue = { int_cours: "", volume: "" };
 function Cours() {
-  const [gridApi, setGridApi] = useState(null);
+  const [gridApi, setGridApi] = useState(null); // eslint-disable-line no-unused-vars
   // let setGridApi = useRef();
   const [tableData, setTableData] = useState(null);
   const [open, setOpen] = React.useState(false);
@@ -34,19 +34,20 @@ function Cours() {
     {
       headerName: "Actions",
       field: "id",
-      cellRendererFramework: (params) => (
+      cellRendererFramework: (params) => {
         <ButtonsEditDel
           params={params}
           handleUpdate={coursUpdate}
           handleDelete={coursDelete}
-        />
-      ),
+        />;
+      },
     },
   ];
 
   // calling getUsers function for first time
   useEffect(() => {
     getCours();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Get Enseignant data from server

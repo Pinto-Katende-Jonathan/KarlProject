@@ -1,16 +1,16 @@
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { AgGridReact } from "ag-grid-react";
-import React, { useEffect, useState } from "react";
 import ButtonsEditDel from "../UI/ButtonEditDel";
 import HeaderTitle from "../UI/HeaderTitle";
 import FormDialog from "./FormDialogEnseignant";
 
 const initialValue = { noms: "", grade: "", telephone: "" };
 function Enseignant() {
-  const [gridApi, setGridApi] = useState(null);
+  const [gridApi, setGridApi] = useState(null); // eslint-disable-line no-unused-vars
   // let setGridApi = useRef();
   const [tableData, setTableData] = useState(null);
   const [open, setOpen] = React.useState(false);
@@ -48,6 +48,7 @@ function Enseignant() {
   // calling getEns function for first time
   useEffect(() => {
     getEnseignants();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Get Enseignant data from server
@@ -90,7 +91,7 @@ function Enseignant() {
   const handleFormSubmit = () => {
     if (formData.id) {
       //updating an enseignant
-      if (formData.noms.trim() !== "" && formData.telephone.trim() !== "") {
+      if (formData.noms.trim() && formData.telephone.trim()) {
         fetch(url + `/${formData.id}`, {
           method: "PUT",
           body: JSON.stringify({
@@ -111,9 +112,9 @@ function Enseignant() {
     } else {
       // adding new enseignant
       if (
-        formData.noms.trim() !== "" &&
-        formData.telephone.trim() !== "" &&
-        formData.telephone.length == 10
+        formData.noms.trim() &&
+        formData.telephone.trim() &&
+        formData.telephone.length === 10
       ) {
         fetch(url, {
           method: "POST",
@@ -140,7 +141,7 @@ function Enseignant() {
 
   return (
     <div className="ensignant">
-      <HeaderTitle title="Ensignant" />
+      <HeaderTitle title="Enseignant" />
       <Grid align="right">
         <Button
           style={{ margin: 20, width: "40%" }}
