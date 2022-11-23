@@ -3,7 +3,7 @@ import Boutton from "../UI/Boutton";
 import HeaderTitle from "../UI/HeaderTitle";
 import FormPrestation from "./FormPrestation";
 import styles from "./Prestation.module.css";
-import BasicTable from "./TablePrestation";
+import DataTable from "./TablePrestation";
 
 function Prestation() {
   const [open, setOpen] = useState(false);
@@ -52,7 +52,7 @@ function Prestation() {
       />
 
       {/* ================Table of datas ================================ */}
-      <BasicTable />
+      <DataTable />
     </>
   );
 }

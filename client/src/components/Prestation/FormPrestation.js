@@ -31,7 +31,6 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
-    // console.log(e.target.value);
   };
 
   const handleFormSubmit = (e) => {
@@ -53,9 +52,8 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
     })
       .then((resp) => resp.json())
       .then((resp) => {
-        // handleClose();
-        // getCours();
-        console.log(resp);
+        handleClose();
+        window.location.reload();
       });
 
     console.log("submitted");
