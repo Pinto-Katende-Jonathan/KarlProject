@@ -84,7 +84,9 @@ function Enseignant() {
     if (confirm) {
       fetch(url + `/${id}`, { method: "DELETE" })
         .then((resp) => resp.json())
-        .then((resp) => getEnseignants());
+        .then((resp) => {
+          getEnseignants();
+        });
     }
   };
 
@@ -126,8 +128,13 @@ function Enseignant() {
           .then((resp) => resp.json())
           .then((resp) => {
             handleClose();
+            alert("Enseignant ajouté avec succès");
             getEnseignants();
           });
+      } else {
+        alert(
+          "La taille du numéro doit être égale à 10 ou soit le numéro doit être unique"
+        );
       }
     }
   };

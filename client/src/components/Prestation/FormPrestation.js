@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogActions,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import Boutton from "../UI/Boutton";
 
-function FormPrestation({ open, setOpen, dataEns, dataCours }) {
+function FormPrestation({ open, setOpen }) {
   const initialValues = {
     heureDebut: "",
     heureFin: "",
@@ -21,6 +21,29 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
   };
 
   const [inputs, setInputs] = useState(initialValues);
+  const [dataEns, setdataEns] = useState([]);
+  const [dataCours, setdataCours] = useState([]);
+
+  const allEnseignants = async () => {
+    await fetch(`http://localhost:5000/enseignants`)
+      .then((resp) => resp.json())
+      .then((resp) => setdataEns(resp))
+      .catch((e) => console.log("Erreur de connexion à l'api Enseignant", e));
+  };
+
+  const allCours = async () => {
+    await fetch(`http://localhost:5000/cours`)
+      .then((resp) => resp.json())
+      .then((resp) => setdataCours(resp))
+      .catch((e) => console.log("Erreur de connexion à l'api Cours", e));
+  };
+
+  useEffect(() => {
+    allEnseignants();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    allCours();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -52,7 +75,7 @@ function FormPrestation({ open, setOpen, dataEns, dataCours }) {
     })
       .then((resp) => resp.json())
       .then((resp) => {
-        handleClose();
+        console.log(resp);
         window.location.reload();
       });
 
