@@ -1,8 +1,9 @@
 from apiflask import APIBlueprint, abort
-from .schema import EnseignantIn, EnseignantOut
-from ..model import Enseignant
 from flask import jsonify
+
 from ..extension import db
+from ..model import Enseignant
+from .schema import EnseignantIn, EnseignantOut
 
 ens = APIBlueprint('Enseignant', __name__, tag={
     'name': 'Enseignant', 'description': 'Espace Enseignant : Vous pouvez rechercher un Enseignant par son id, vous pouvez aussi faire le Crud'
