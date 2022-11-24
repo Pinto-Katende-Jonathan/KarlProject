@@ -7,10 +7,10 @@ import LoginUser from "./LoginUser";
 function Login() {
   return (
     <>
-      <div class="login-wrap">
-        <div class="login-html">
+      <div className="login-wrap">
+        <div className="login-html">
           <HeaderLogin />
-          <div class="login-form">
+          <div className="login-form">
             <LoginUser />
             <Compte />
           </div>

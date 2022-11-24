@@ -3,12 +3,12 @@ import React from "react";
 function HeaderLogin() {
   return (
     <>
-      <input id="tab-1" type="radio" name="tab" class="sign-in" checked />
-      <label for="tab-1" class="tab">
+      <input id="tab-1" type="radio" name="tab" className="sign-in" checked />
+      <label htmlFor="tab-1" className="tab">
         Login
       </label>
-      <input id="tab-2" type="radio" name="tab" class="sign-up" />
-      <label for="tab-2" class="tab">
+      <input id="tab-2" type="radio" name="tab" className="sign-up" />
+      <label htmlFor="tab-2" className="tab">
         Enregistrement
       </label>
     </>
