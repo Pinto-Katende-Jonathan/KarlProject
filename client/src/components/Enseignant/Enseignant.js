@@ -7,6 +7,7 @@ import { AgGridReact } from "ag-grid-react";
 import ButtonsEditDel from "../UI/ButtonEditDel";
 import HeaderTitle from "../UI/HeaderTitle";
 import FormDialog from "./FormDialogEnseignant";
+import MessageFlash from "../UI/MessageFlash";
 
 const initialValue = { noms: "", grade: "", telephone: "" };
 function Enseignant() {
@@ -15,6 +16,9 @@ function Enseignant() {
   const [tableData, setTableData] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = useState(initialValue);
+
+  const [message, setMessage] = useState(null);
+  const [type, setType] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -128,7 +132,13 @@ function Enseignant() {
           .then((resp) => resp.json())
           .then((resp) => {
             handleClose();
-            alert("Enseignant ajouté avec succès");
+            // L'alert disparait après 3s
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
+            setMessage(resp.message);
+            setType("success");
+            // alert("Enseignant ajouté avec succès");
             getEnseignants();
           });
       } else {
@@ -149,6 +159,16 @@ function Enseignant() {
   return (
     <div className="ensignant">
       <HeaderTitle title="Enseignant" />
+      {message ? (
+        <div
+          className="alert-ens"
+          style={{ width: 300, margin: "10px auto", textAlign: "center" }}
+        >
+          <MessageFlash message={message} setMessage={setMessage} type={type} />
+        </div>
+      ) : (
+        ""
+      )}
       <Grid align="right">
         <Button
           style={{ margin: 20, width: "40%" }}

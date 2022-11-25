@@ -1,21 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import MessageFlash from "../UI/MessageFlash";
 
 function Compte() {
   const {
     register,
-    watch,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
+  const [message, setMessage] = useState(null);
+  const [type, setType] = useState(null);
+
   const submitForm = (data) => {
-    console.log(data);
+    // console.log(data);
+
+    const url = "http://127.0.0.1:5000/user";
+
+    const options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    };
+
+    if (data.password === data.confirmPassword) {
+      fetch(url, options)
+        .then((resp) => resp.json())
+        .then((resp) => {
+          // L'alert disparait après 3s
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+          setMessage(resp.message);
+          setType("success");
+        })
+        .catch((e) => console.log(e));
+      reset();
+    } else {
+      // L'alert disparait après 3s
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+      setMessage("Les deux mots de passe doivent correspondre!");
+      setType("error");
+    }
   };
-  console.log(watch("email"));
+  // console.log(watch("email"));
 
   return (
     <form className="sign-up-htm">
+      {message ? (
+        <MessageFlash message={message} setMessage={setMessage} type={type} />
+      ) : (
+        ""
+      )}
+
       <div className="group">
         <label htmlFor="email" className="label">
           Email Address
@@ -54,7 +99,6 @@ function Compte() {
           </p>
         )}
       </div>
-
       <div className="group">
         <label htmlFor="password" className="label">
           Password
@@ -109,6 +153,7 @@ function Compte() {
       </div>
       <div className="group">
         <input
+          style={{ cursor: "pointer" }}
           type="submit"
           className="button"
           value="S'enregistrer"
