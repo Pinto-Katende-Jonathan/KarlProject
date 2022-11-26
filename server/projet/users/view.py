@@ -16,7 +16,6 @@ use = APIBlueprint('users', __name__, tag={
 
 
 @use.get('/users')
-@jwt_required()
 @use.output(UserOut)
 def users():
     users = User.query.order_by(User.id.desc()).all()
@@ -31,7 +30,6 @@ def users():
 
 
 @use.get('/user/<int:id>')
-@jwt_required()
 @use.output(UserOut)
 def user(id):
     user = User.query.filter_by(id=id).first()
@@ -45,11 +43,11 @@ def user(id):
 
 
 @use.post('/user')
-@jwt_required()
 @use.input(UserIn)
 def create_user(data):
     #data = request.json
     user = User.query.filter_by(email=data.get('email')).first()
+    print(data)
     if user is None:
         user = User(email=data.get('email'),
                     password=generate_password_hash(data.get('password')))
@@ -60,7 +58,6 @@ def create_user(data):
 
 # MàJ des infos du user à l'aide de son email.
 @use.put('/user/<int:id>')
-@jwt_required()
 @use.input(UserIn)
 @use.output(UserOut)
 def user_update(id, data):
@@ -80,7 +77,6 @@ def user_update(id, data):
 
 
 @use.delete('/user/<int:id>')
-@jwt_required()
 def user_delete(id):
     user = User.query.filter_by(id=id).first()
     if user:

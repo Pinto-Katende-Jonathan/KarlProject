@@ -4,6 +4,9 @@ from apiflask import APIFlask
 def create_app():
     app = APIFlask(__name__, title="Projet Karl")
 
+    from flask_jwt_extended import JWTManager
+    jwt = JWTManager(app)
+
     from flask_cors import CORS
     CORS(app)
 
