@@ -7,6 +7,7 @@ import { AgGridReact } from "ag-grid-react";
 import ButtonsEditDel from "../UI/ButtonEditDel";
 import HeaderTitle from "../UI/HeaderTitle";
 import FormDialog from "./FormDialogCours";
+import useAuth from "../User/hooks/useAuth";
 
 const initialValue = { int_cours: "", volume: "" };
 function Cours() {
@@ -15,6 +16,7 @@ function Cours() {
   const [tableData, setTableData] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = useState(initialValue);
+  const { accessToken } = useAuth();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,6 +53,7 @@ function Cours() {
   }, []);
 
   //Get Enseignant data from server
+  console.log(accessToken);
   const getCours = () => {
     fetch(url)
       .then((resp) => resp.json())

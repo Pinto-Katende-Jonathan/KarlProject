@@ -1,5 +1,12 @@
-import React from "react";
+// import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import MessageFlash from "../UI/MessageFlash";
+import axios from "./api/axios";
+import useAuth from "./hooks/useAuth";
+
+const LOGIN_URL = "/login";
 
 function LoginUser() {
   const {
@@ -8,31 +15,48 @@ function LoginUser() {
     reset,
     formState: { errors },
   } = useForm();
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState("");
 
-  const submitForm = (data) => {
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const submitForm = async (dat) => {
     // console.log(data);
 
-    const url = "http://127.0.0.1:5000/login";
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ email: dat.email, password: dat.password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      const accessToken = response?.data?.access_token; //on vérifie si le backend a l'access_token
+      if (accessToken) {
+        setAuth({ user: dat.email, accessToken });
+        navigate(from, { replace: true });
+      }
+      // Error
+      setMessage(response.data?.message);
+      setType("error");
+    } catch (err) {
+      console.log(err);
+    }
 
-    const options = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    };
-
-    fetch(url, options)
-      .then((resp) => resp.json())
-      .then((resp) => console.log(resp))
-      .catch((e) => console.log(e));
     reset();
   };
   return (
     <form className="sign-in-htm">
+      {message ? (
+        <MessageFlash message={message} setMessage={setMessage} type={type} />
+      ) : (
+        ""
+      )}
       <div className="group">
         <label htmlFor="user" className="label">
           Email
@@ -42,6 +66,7 @@ function LoginUser() {
           id="user"
           type="email"
           className="input"
+          autoComplete="off"
           {...register("email", { required: true, maxLength: 30 })}
         />
         {errors.email && (

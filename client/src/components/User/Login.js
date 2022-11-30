@@ -2,7 +2,7 @@ import React from "react";
 import Compte from "./Compte";
 import HeaderLogin from "./HeaderLogin";
 import "./Login.css";
-import LoginUser from "./LoginUser";
+import LoginPage from "./LoginUser";
 
 function Login() {
   return (
@@ -11,7 +11,7 @@ function Login() {
         <div className="login-html">
           <HeaderLogin />
           <div className="login-form">
-            <LoginUser />
+            <LoginPage />
             <Compte />
           </div>
         </div>

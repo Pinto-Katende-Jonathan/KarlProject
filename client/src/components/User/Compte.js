@@ -70,6 +70,7 @@ function Compte() {
           id="email"
           type="email"
           className="input"
+          autoComplete="off"
           {...register("email", { required: true, maxLength: 30 })}
         />
         {errors.email && (
