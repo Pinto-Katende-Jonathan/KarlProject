@@ -8,7 +8,7 @@ def create_app():
     jwt = JWTManager(app)
 
     from flask_cors import CORS
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     from .users.view import use
     from .prestations.view import pre

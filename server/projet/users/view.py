@@ -56,7 +56,7 @@ def create_user(data):
     return {'message': "l'email existe déjà"}
 
 
-# MàJ des infos du user à l'aide de son email.
+# MàJ des infos du user à l'aide de son id.
 @use.put('/user/<int:id>')
 @use.input(UserIn)
 @use.output(UserOut)
